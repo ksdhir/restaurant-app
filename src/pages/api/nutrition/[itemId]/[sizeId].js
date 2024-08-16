@@ -10,8 +10,8 @@ export default async function handler(req, res) {
       SELECT 
         calories,
         protein,
-        total_carbs,
-        total_fat,
+        total_carbs as carbs,
+        total_fat as fat,
         sugars,
         sodium
       FROM Nutrition
