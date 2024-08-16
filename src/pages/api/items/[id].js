@@ -1,4 +1,4 @@
-import pool from '../../../../db/config'
+import pool from '@/../db/config';
 
 export default async function handler(req, res) {
   // extract id from query
