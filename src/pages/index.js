@@ -1,10 +1,31 @@
-import Image from "next/image";
+import Card from '@/components/menu/ItemCard'
+import Section from '@/components/menu/Section'
 
-export default function Home() {
+export async function getStaticProps() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/items`)
+  console.log(res)
+  const items = await res.json()
+
+  return {
+    props: {
+      items,
+      res: `${process.env.NEXT_PUBLIC_API_URL}/api/items`,
+    },
+    revalidate: 10,
+  }
+}
+
+export default function Home({ items }) {
   return (
-    <>
-      <p class="text-coral">Coral text</p>
-      <p class="text-payne">Payne text</p>
-    </>
-  );
+    <div className="p-8">
+      <h1 className="text-4xl text-center font-bold text-gunmetal">
+        Full Menu
+      </h1>
+      <div className="mt-16 mb-16 flex flex-col gap-16">
+        {items.map((category) => (
+          <Section key={category.id} category={category} />
+        ))}
+      </div>
+    </div>
+  )
 }
