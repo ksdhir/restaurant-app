@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-const Card = ({ imageUrl, name, price }) => {
+const Card = ({ imageUrl, name, itemId }) => {
+  const slug = name.toLowerCase().replace(/\s/g, '-') + `-${itemId}`
   return (
-    <Link href={""}>
+    <Link href={`/items/${slug}`}>
       <div className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
         <div className="relative h-48 w-full">
           <Image
