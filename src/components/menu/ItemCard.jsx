@@ -5,7 +5,7 @@ const Card = ({ imageUrl, name, itemId }) => {
   const slug = name.toLowerCase().replace(/\s/g, '-') + `-${itemId}`
   return (
     <Link href={`/items/${slug}`}>
-      <div className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
+      <div className="bg-white shadow-md shadow-silver rounded-lg overflow-hidden hover:shadow-lg hover:shadow-silver transition-shadow duration-300">
         <div className="relative h-48 w-full">
           <Image
             src={imageUrl}
