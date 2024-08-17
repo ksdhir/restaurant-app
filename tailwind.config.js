@@ -11,7 +11,7 @@ module.exports = {
         genmetal: '#2D3142',
         silver: '#BFC0C0',
         white: '#FFFFFF', // Fixed the hex code for white
-        coral: '#EF8354',
+        coral: '#B5543A',
         payne: '#4F5D75',
       },
       fontFamily: {
@@ -19,11 +19,11 @@ module.exports = {
         heading: ['Poppins', 'sans-serif'],
       },
       screens: {
-        sm: '640px',
-        md: '768px',
-        lg: '1024px',
-        xl: '1280px',
-        '2xl': '1536px',
+        sm: '480px',
+        md: '640px',
+        lg: '768px',
+        xl: '1024px',
+        '2xl': '1280px',
       },
     },
   },
