@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router' // Import the useRouter hook
 
 // import icons
 import { FiMenu, FiX } from 'react-icons/fi'
@@ -7,17 +8,26 @@ import { FiMenu, FiX } from 'react-icons/fi'
 export const Header = () => {
   // State to control the mobile menu toggle
   const [isOpen, setIsOpen] = useState(false)
+  const [activePath, setActivePath] = useState('') // State to track the active path
+  const router = useRouter() // Get the router object
 
   // Menu items with their respective paths
   const menuItems = [
-    { name: 'Menu', path: '/menu' },
+    { name: 'Menu', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' },
   ]
 
+  // Set the active path based on the current route
+  useEffect(() => {
+    const splitPath = router.pathname.split('/')
+    const selectedPath = splitPath[1]
+    setActivePath('/' + selectedPath)
+  }, [router.pathname])
+
   return (
     <header className="text-gunmetal py-8 shadow-md relative z-50">
-      <div className="container mx-auto flex justify-between items-center px-4">
+      <div className="border border-red-500 container mx-auto flex justify-between items-center px-4">
         <h1 className="text-xl font-bold">
           <Link href="/">Indian Spice House</Link>
         </h1>
@@ -25,7 +35,13 @@ export const Header = () => {
         <nav className="hidden md:flex space-x-6">
           {menuItems.map((item) => (
             <Link key={item.name} href={item.path}>
-              <span className="hover:text-coral">{item.name}</span>
+              <span
+                className={
+                  activePath === item.path ? 'text-coral font-bold' : 'text-gunmetal hover:text-coral'
+                }
+              >
+                {item.name}
+              </span>
             </Link>
           ))}
         </nav>

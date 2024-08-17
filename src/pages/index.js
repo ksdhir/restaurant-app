@@ -17,7 +17,7 @@ export async function getStaticProps() {
 
 export default function Home({ items }) {
   return (
-    <div className="p-8">
+    <>
       <h1 className="text-4xl text-center font-bold text-gunmetal">
         Full Menu
       </h1>
@@ -26,6 +26,6 @@ export default function Home({ items }) {
           <Section key={category.id} category={category} />
         ))}
       </div>
-    </div>
+    </>
   )
 }
