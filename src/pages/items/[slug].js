@@ -92,41 +92,51 @@ const ItemPage = ({
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <div className="flex justify-center">
-        <Image
-          src={itemDetails.image_url}
-          alt={itemDetails.item_name}
-          width={500}
-          height={300}
-          className="rounded-lg"
-        />
-      </div>
+    <div className="">
+      <div className="flex flex-col lg:flex-row gap-8">
+        <div>
+          <Image
+            src={itemDetails.image_url}
+            alt={itemDetails.item_name}
+            width={600}
+            height={400}
+            className="rounded-lg"
+          />
+        </div>
 
-      <h1 className="text-3xl text-gunmetal mt-6 mb-4">
-        {itemDetails.item_name}
-      </h1>
+        <div className="xl:basis-3/6 flex flex-col gap-8 justify-evenly lg:text-center">
+          {/* item descrip */}
+          <div>
+            <h1 className="text-3xl text-gunmetal mb-4">
+              {itemDetails.item_name}
+            </h1>
+            <p className="text-lg text-gunmetal">
+              {itemDetails.description}
+            </p>
+          </div>
 
-      <p className="text-lg text-gunmetal mb-4">{itemDetails.description}</p>
-
-      <div className="mt-6">
-        <h2 className="text-2xl text-gunmetal font-semibold mb-4">
-          Available Sizes
-        </h2>
-        <div className="flex space-x-4">
-          {itemDetails.sizes.map((size) => (
-            <Button
-              isSelected={selectedSize.sizeId === size.sizeId}
-              key={size.sizeId}
-            >
-              <div className="flex flex-row gap-4 items-center">
-                <span className="font-semibold">{size.sizeLabel}</span>
-                <span className="text-sm">${size.price}</span>
-              </div>
-            </Button>
-          ))}
+          {/* available sizes container */}
+          <div className="flex flex-row max-md:flex-col lg:flex-col max-md:items-start items-center justify-between">
+            <h2 className="text-2xl text-gunmetal font-semibold max-md:mb-6 lg:mb-6">
+              Available Sizes
+            </h2>
+            <div className="flex max-sm:flex-col max-sm:gap-4 gap-2 xl:gap-4 lg:justify-evenly">
+              {itemDetails.sizes.map((size) => (
+                <Button
+                  isSelected={selectedSize.sizeId === size.sizeId}
+                  key={size.sizeId}
+                >
+                  <div className="flex flex-row gap-4 items-center">
+                    <span className="font-semibold">{size.sizeLabel}</span>
+                    <span className="text-sm">${size.price}</span>
+                  </div>
+                </Button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
+
       <div className="mt-8 flex flex-col gap-8">
         <ItemInfoList
           title="Ingredient and Allergens"
