@@ -27,7 +27,7 @@ export const Header = () => {
 
   return (
     <header className="text-gunmetal py-8 shadow-md relative z-50">
-      <div className="border border-red-500 container mx-auto flex justify-between items-center px-4">
+      <div className="container mx-auto flex justify-between items-center px-4">
         <h1 className="text-xl font-bold">
           <Link href="/">Indian Spice House</Link>
         </h1>

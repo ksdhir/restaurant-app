@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 
 import ItemInfoList from '@/components/menu/ItemInfoList'
+import Button from '@/components/common/Button'
 
 export async function getStaticPaths() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/items`)
@@ -43,41 +44,44 @@ export async function getStaticProps({ params }) {
   )
   const nutritionData = await nutritionRes.json()
 
-
-   // Mapping for the display labels
-   const labelMapping = {
-    calories: "Calories",
-    protein: "Protein",
-    carbs: "Carbohydrates",
-    fat: "Fat",
-    sugars: "Sugars",
-    sodium: "Sodium"
-   };
+  // Mapping for the display labels
+  const labelMapping = {
+    calories: 'Calories',
+    protein: 'Protein',
+    carbs: 'Carbohydrates',
+    fat: 'Fat',
+    sugars: 'Sugars',
+    sodium: 'Sodium',
+  }
 
   const formattedNutritionData = Object.keys(nutritionData).map((key) => {
     return {
       label: labelMapping[key],
       value: `${nutritionData[key]} ${key === 'calories' ? 'kcal' : 'g'}`,
-    };
-  });
+    }
+  })
 
-  const formattedIngredients = itemDetails.ingredients.map((ingredient) => { 
+  const formattedIngredients = itemDetails.ingredients.map((ingredient) => {
     return {
       label: ingredient.ingredient_name,
       value: ingredient.allergens.join(', '),
-    };
+    }
   })
 
   return {
     props: {
       itemDetails,
       formattedNutritionData,
-      formattedIngredients
+      formattedIngredients,
     },
   }
 }
 
-const ItemPage = ({ itemDetails, formattedNutritionData, formattedIngredients }) => {
+const ItemPage = ({
+  itemDetails,
+  formattedNutritionData,
+  formattedIngredients,
+}) => {
   const [selectedSize, setSelectedSize] = useState(itemDetails.sizes[0]) // Default to the first size
 
   // Placeholder function to handle size change (you'll later fetch nutrition data based on this)
@@ -111,26 +115,27 @@ const ItemPage = ({ itemDetails, formattedNutritionData, formattedIngredients })
         </h2>
         <div className="flex space-x-4">
           {itemDetails.sizes.map((size) => (
-            <button
+            <Button
+              isSelected={selectedSize.sizeId === size.sizeId}
               key={size.sizeId}
-              onClick={() => handleSizeChange(size)}
-              className={`px-4 py-2 rounded-lg border transition-colors duration-300 text-left ${
-                selectedSize.sizeId === size.sizeId
-                  ? 'bg-coral text-white border-coral'
-                  : 'bg-white text-gunmetal border-gray-300 hover:bg-gray-100'
-              }`}
             >
               <div className="flex flex-row gap-4 items-center">
                 <span className="font-semibold">{size.sizeLabel}</span>
                 <span className="text-sm">${size.price}</span>
               </div>
-            </button>
+            </Button>
           ))}
         </div>
       </div>
       <div className="mt-8 flex flex-col gap-8">
-        <ItemInfoList title="Ingredient and Allergens" data={formattedIngredients} />
-        <ItemInfoList title="Nutrition Information" data={formattedNutritionData} />
+        <ItemInfoList
+          title="Ingredient and Allergens"
+          data={formattedIngredients}
+        />
+        <ItemInfoList
+          title="Nutrition Information"
+          data={formattedNutritionData}
+        />
       </div>
     </div>
   )
