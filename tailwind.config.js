@@ -13,6 +13,10 @@ module.exports = {
         white: '#FFFFFF', // Fixed the hex code for white
         coral: '#B5543A',
         payne: '#4F5D75',
+        primary: "#FFB522",
+        secondary: "#2F2F2F",
+        accent: "#F45D42",
+        background: "#FAF3DE",
       },
       fontFamily: {
         main: ['Inter', 'sans-serif'],
