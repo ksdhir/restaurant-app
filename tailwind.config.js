@@ -18,10 +18,6 @@ module.exports = {
         accent: "#F45D42",
         background: "#FAF3DE",
       },
-      fontFamily: {
-        main: ['Inter', 'sans-serif'],
-        heading: ['Poppins', 'sans-serif'],
-      },
       screens: {
         sm: '480px',
         md: '600px',
