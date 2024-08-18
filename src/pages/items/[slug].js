@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import Image from 'next/image'
 
+import ItemInfoList from '@/components/menu/ItemInfoList'
+
 export async function getStaticPaths() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/items`)
   const categories = await res.json()
@@ -31,27 +33,52 @@ export async function getStaticProps({ params }) {
   const id = slug.split('-').pop()
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/items/${id}`)
-  const itemDetails = await res.json();
+  const itemDetails = await res.json()
 
   // get nutrition data for first size
 
-  const size = itemDetails.sizes[0].sizeId;
-  const nutritionRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nutrition/${id}/${size}`);
-  const nutritionData = await nutritionRes.json();
+  const size = itemDetails.sizes[0].sizeId
+  const nutritionRes = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/nutrition/${id}/${size}`
+  )
+  const nutritionData = await nutritionRes.json()
 
+
+   // Mapping for the display labels
+   const labelMapping = {
+    calories: "Calories",
+    protein: "Protein",
+    carbs: "Carbohydrates",
+    fat: "Fat",
+    sugars: "Sugars",
+    sodium: "Sodium"
+   };
+
+  const formattedNutritionData = Object.keys(nutritionData).map((key) => {
+    return {
+      label: labelMapping[key],
+      value: `${nutritionData[key]} ${key === 'calories' ? 'kcal' : 'g'}`,
+    };
+  });
+
+  const formattedIngredients = itemDetails.ingredients.map((ingredient) => { 
+    return {
+      label: ingredient.ingredient_name,
+      value: ingredient.allergens.join(', '),
+    };
+  })
 
   return {
     props: {
       itemDetails,
-      nutritionData,
+      formattedNutritionData,
+      formattedIngredients
     },
   }
 }
 
-const ItemPage = ({ itemDetails, nutritionData }) => {
+const ItemPage = ({ itemDetails, formattedNutritionData, formattedIngredients }) => {
   const [selectedSize, setSelectedSize] = useState(itemDetails.sizes[0]) // Default to the first size
-
-  console.log(nutritionData)
 
   // Placeholder function to handle size change (you'll later fetch nutrition data based on this)
   const handleSizeChange = (size) => {
@@ -101,32 +128,9 @@ const ItemPage = ({ itemDetails, nutritionData }) => {
           ))}
         </div>
       </div>
-
-      <div className="mt-8">
-        <h2 className="text-2xl text-gunmetal font-semibold mb-4">
-          Nutrition Information
-        </h2>
-        <div className="border rounded-lg p-4 bg-white shadow-md">
-          {/* Dummy data for now; this will change based on size in the future */}
-          <p>
-            <strong>Calories:</strong> 400
-          </p>
-          <p>
-            <strong>Protein:</strong> 15g
-          </p>
-          <p>
-            <strong>Carbohydrates:</strong> 40g
-          </p>
-          <p>
-            <strong>Fat:</strong> 20g
-          </p>
-          <p>
-            <strong>Sugars:</strong> 2g
-          </p>
-          <p>
-            <strong>Sodium:</strong> 700mg
-          </p>
-        </div>
+      <div className="mt-8 flex flex-col gap-8">
+        <ItemInfoList title="Ingredient and Allergens" data={formattedIngredients} />
+        <ItemInfoList title="Nutrition Information" data={formattedNutritionData} />
       </div>
     </div>
   )

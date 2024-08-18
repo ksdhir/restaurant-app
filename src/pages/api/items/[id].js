@@ -49,15 +49,7 @@ export default async function handler(req, res) {
     }))
 
     // ingredients and allergens
-    const ingredients = ingredientsInfo[0].map((row) => {
-      if(row.allergens.length <= 1  && row.allergens[0] === null) {
-        return {
-          ingredientId: row.ingredient_id,
-          ingredientName: row.ingredient_name,
-          allergens: null,
-        }
-      } else return row
-    })
+    const ingredients = ingredientsInfo[0];
 
     // construct response
     const result = {
