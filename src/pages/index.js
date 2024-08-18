@@ -19,7 +19,7 @@ export default function Home({ items }) {
   return (
     <>
       <h1 className="text-4xl text-center font-bold text-gunmetal">
-        Full Menu
+        Discover the Authentic Taste of Indian Spices
       </h1>
       <div className="mt-16 mb-16 flex flex-col gap-16">
         {items.map((category) => (

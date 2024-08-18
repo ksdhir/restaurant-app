@@ -26,19 +26,21 @@ export const Header = () => {
   }, [router.pathname])
 
   return (
-    <header className="text-gunmetal py-8 shadow-md relative z-50">
+    <header className="text-gunmetal py-4">
       <div className="container mx-auto flex justify-between items-center px-4">
-        <h1 className="text-xl font-bold">
+        <h1 className="text-2xl font-bold">
           <Link href="/">Indian Spice House</Link>
         </h1>
         {/* Desktop navbar */}
-        <nav className="hidden md:flex space-x-6">
+        <nav className="hidden md:flex">
           {menuItems.map((item) => (
             <Link key={item.name} href={item.path}>
               <span
-                className={
-                  activePath === item.path ? 'text-coral font-bold' : 'text-gunmetal hover:text-coral'
-                }
+                className={`inline-block text-center w-[80px] ${
+                  activePath === item.path
+                    ? 'bg-accent text-background font-bold p-2 rounded-2xl'
+                    : 'text-secondary hover:text-accent p-2'
+                }`}
               >
                 {item.name}
               </span>
