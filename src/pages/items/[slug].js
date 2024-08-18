@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import Image from 'next/image'
+// import utils
+import { formatNutritionData } from '@/utils/formatNutritionData'
 
+// Import components
 import ItemInfoList from '@/components/menu/ItemInfoList'
 import Button from '@/components/common/Button'
 
@@ -44,22 +47,8 @@ export async function getStaticProps({ params }) {
   )
   const nutritionData = await nutritionRes.json()
 
-  // Mapping for the display labels
-  const labelMapping = {
-    calories: 'Calories',
-    protein: 'Protein',
-    carbs: 'Carbohydrates',
-    fat: 'Fat',
-    sugars: 'Sugars',
-    sodium: 'Sodium',
-  }
-
-  const formattedNutritionData = Object.keys(nutritionData).map((key) => {
-    return {
-      label: labelMapping[key],
-      value: `${nutritionData[key]} ${key === 'calories' ? 'kcal' : 'g'}`,
-    }
-  })
+  // nutrition data
+  const formattedNutritionData = formatNutritionData(nutritionData)
 
   const formattedIngredients = itemDetails.ingredients.map((ingredient) => {
     return {
@@ -82,13 +71,27 @@ const ItemPage = ({
   formattedNutritionData,
   formattedIngredients,
 }) => {
-  const [selectedSize, setSelectedSize] = useState(itemDetails.sizes[0]) // Default to the first size
+  const [selectedSize, setSelectedSize] = useState(itemDetails.sizes[0])
+  const [nutritionData, setNutritionData] = useState(formattedNutritionData)
 
-  // Placeholder function to handle size change (you'll later fetch nutrition data based on this)
-  const handleSizeChange = (size) => {
-    setSelectedSize(size)
-    // Placeholder: Add your logic to fetch new nutrition data here
-    console.log(`Selected size: ${size.sizeLabel}`)
+  // add handleSizeChange function
+  const handleSizeChange = async (size) => {
+    const sizeId = size.sizeId
+    const itemId = itemDetails.item_id
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/nutrition/${itemId}/${sizeId}`
+      )
+      const newNutritionData = await res.json()
+      const formattedNewNutritionData = formatNutritionData(newNutritionData)
+
+      // set values
+      setNutritionData(formattedNewNutritionData)
+      setSelectedSize(size)
+    } catch (error) {
+      console.error('Failed to fetch nutrition data:', error)
+    }
   }
 
   return (
@@ -110,9 +113,7 @@ const ItemPage = ({
             <h1 className="text-3xl text-gunmetal mb-4">
               {itemDetails.item_name}
             </h1>
-            <p className="text-lg text-gunmetal">
-              {itemDetails.description}
-            </p>
+            <p className="text-lg text-gunmetal">{itemDetails.description}</p>
           </div>
 
           {/* available sizes container */}
@@ -125,6 +126,7 @@ const ItemPage = ({
                 <Button
                   isSelected={selectedSize.sizeId === size.sizeId}
                   key={size.sizeId}
+                  onClick={() => handleSizeChange(size)}
                 >
                   <div className="flex flex-row gap-4 items-center">
                     <span className="font-semibold">{size.sizeLabel}</span>
@@ -142,10 +144,7 @@ const ItemPage = ({
           title="Ingredient and Allergens"
           data={formattedIngredients}
         />
-        <ItemInfoList
-          title="Nutrition Information"
-          data={formattedNutritionData}
-        />
+        <ItemInfoList title="Nutrition Information" data={nutritionData} />
       </div>
     </div>
   )
