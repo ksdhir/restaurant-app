@@ -1,13 +1,12 @@
-import pool from '@/../db/config';
+import pool from '@/../db/config'
 
 export default async function handler(req, res) {
   // extract id from query
-  const { id } = req.query 
+  const { id } = req.query
 
   try {
-    const [results] = await pool.query(
-      `
-      SELECT 
+    const itemInfo = await pool.query(
+      `SELECT 
         i.id AS item_id,
         i.name AS item_name,
         i.description,
@@ -24,24 +23,51 @@ export default async function handler(req, res) {
       [id]
     )
 
-    if (results.length === 0) {
+    // validation for item
+    if (itemInfo[0].length === 0) {
       return res.status(404).json({ error: 'Item not found' })
     }
 
-    // extract all sizes and price
-    const sizes = results.map((row) => ({
+    const ingredientsInfo = await pool.query(
+      `SELECT
+        ing.id AS ingredient_id,
+        ing.name AS ingredient_name,
+        COALESCE(JSON_ARRAYAGG(at.name), JSON_ARRAY()) AS allergens
+      FROM Ingredients ing
+      JOIN ItemIngredients ii ON ii.ingredient_id = ing.id
+      LEFT JOIN IngredientAllergens ia ON ia.ingredient_id = ing.id
+      LEFT JOIN AllergenTypes at ON at.id = ia.allergen_id
+      WHERE ii.item_id = 1
+      GROUP BY ing.id;`,
+      [id]
+    )
+
+    const sizes = itemInfo[0].map((row) => ({
       sizeId: row.size_id,
       sizeLabel: row.size_label,
       price: row.price,
     }))
 
+    // ingredients and allergens
+    const ingredients = ingredientsInfo[0].map((row) => {
+      if(row.allergens.length <= 1  && row.allergens[0] === null) {
+        return {
+          ingredientId: row.ingredient_id,
+          ingredientName: row.ingredient_name,
+          allergens: null,
+        }
+      } else return row
+    })
+
+    // construct response
     const result = {
-      item_id: results[0].item_id,
-      item_name: results[0].item_name,
-      description: results[0].description,
-      image_url: results[0].image_url,
-      is_featured: results[0].is_featured,
+      item_id: itemInfo[0][0].item_id,
+      item_name: itemInfo[0][0].item_name,
+      description: itemInfo[0][0].description,
+      image_url: itemInfo[0][0].image_url,
+      is_featured: itemInfo[0][0].is_featured,
       sizes: sizes,
+      ingredients: ingredients,
     }
 
     res.status(200).json(result)
