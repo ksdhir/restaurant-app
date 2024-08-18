@@ -1,25 +1,22 @@
 import React from 'react'
 import Link from 'next/link'
 
-// backgroundColor
-// textColor
-// border color
+const AppLink = ({ text, to, variant }) => {
+  // use variants -> full dynamic names -> https://tailwindcss.com/docs/content-configuration#dynamic-class-names
+  const variants = {
+    one: 'bg-background border-background border-2 hover:bg-secondary hover:text-background hover:border-secondary',
+    two: 'bg-primary border-secondary border-2 hover:border-background hover:text-background',
+  }
 
-const AppLink = ({ children, to, backgroundColor, textColor="secondary", borderColor }) => {
   return (
-    <Link href="/about">
-      {/* conditional border color */}
+    <Link href={to}>
       <span
-        className={`px-4 py-2 rounded-lg 
-          bg-${backgroundColor} 
-          text-${textColor}
-          font-semibold
-          ${borderColor && `outline outline-2 outline-${borderColor}`}
-          ${!borderColor && `outline outline-2 outline-${backgroundColor}`}
-           transition-colors duration-300 box-border cursor-pointer
+        className={`
+          inline-block px-4 py-2 rounded-lg font-semibold transition-colors duration-300 box-border cursor-pointer
+          ${variants[variant] || 'text-secondary'}
         `}
       >
-        {children}
+        {text}
       </span>
     </Link>
   )
