@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Image from 'next/image'
 
 export async function getStaticPaths() {
@@ -30,16 +31,35 @@ export async function getStaticProps({ params }) {
   const id = slug.split('-').pop()
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/items/${id}`)
-  const itemDetails = await res.json()
+  const itemDetails = await res.json();
+
+  // get nutrition data for first size
+
+  const size = itemDetails.sizes[0].sizeId;
+  const nutritionRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nutrition/${id}/${size}`);
+  const nutritionData = await nutritionRes.json();
+
 
   return {
     props: {
       itemDetails,
+      nutritionData,
     },
   }
 }
 
-const ItemPage = ({ itemDetails }) => {
+const ItemPage = ({ itemDetails, nutritionData }) => {
+  const [selectedSize, setSelectedSize] = useState(itemDetails.sizes[0]) // Default to the first size
+
+  console.log(nutritionData)
+
+  // Placeholder function to handle size change (you'll later fetch nutrition data based on this)
+  const handleSizeChange = (size) => {
+    setSelectedSize(size)
+    // Placeholder: Add your logic to fetch new nutrition data here
+    console.log(`Selected size: ${size.sizeLabel}`)
+  }
+
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="flex justify-center">
@@ -62,17 +82,51 @@ const ItemPage = ({ itemDetails }) => {
         <h2 className="text-2xl text-gunmetal font-semibold mb-4">
           Available Sizes
         </h2>
-        <ul className="space-y-4">
+        <div className="flex space-x-4">
           {itemDetails.sizes.map((size) => (
-            <li
+            <button
               key={size.sizeId}
-              className="flex justify-between border-b py-2"
+              onClick={() => handleSizeChange(size)}
+              className={`px-4 py-2 rounded-lg border transition-colors duration-300 text-left ${
+                selectedSize.sizeId === size.sizeId
+                  ? 'bg-coral text-white border-coral'
+                  : 'bg-white text-gunmetal border-gray-300 hover:bg-gray-100'
+              }`}
             >
-              <span>{size.sizeLabel}</span>
-              <span className="font-bold text-coral">${size.price}</span>
-            </li>
+              <div className="flex flex-row gap-4 items-center">
+                <span className="font-semibold">{size.sizeLabel}</span>
+                <span className="text-sm">${size.price}</span>
+              </div>
+            </button>
           ))}
-        </ul>
+        </div>
+      </div>
+
+      <div className="mt-8">
+        <h2 className="text-2xl text-gunmetal font-semibold mb-4">
+          Nutrition Information
+        </h2>
+        <div className="border rounded-lg p-4 bg-white shadow-md">
+          {/* Dummy data for now; this will change based on size in the future */}
+          <p>
+            <strong>Calories:</strong> 400
+          </p>
+          <p>
+            <strong>Protein:</strong> 15g
+          </p>
+          <p>
+            <strong>Carbohydrates:</strong> 40g
+          </p>
+          <p>
+            <strong>Fat:</strong> 20g
+          </p>
+          <p>
+            <strong>Sugars:</strong> 2g
+          </p>
+          <p>
+            <strong>Sodium:</strong> 700mg
+          </p>
+        </div>
       </div>
     </div>
   )
