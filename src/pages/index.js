@@ -5,6 +5,7 @@ import HeroLayout from '@/components/layout/HeroLayout'
 import HeroPrimary from '@/components/menu/HeroPrimary'
 import HeroSecondary from '@/components/menu/HeroSecondary'
 import HeroTertiary from '@/components/menu/HeroTertiary'
+import ItemsList from '@/components/menu/ItemsList'
 
 export async function getStaticProps() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/items`)
@@ -36,6 +37,10 @@ export default function Home({ items }) {
           <Section key={category.id} category={category} />
         ))}
       </div> */}
+      {/* Slider listed components */}
+      <div className="my-8 flex flex-col gap-2 border-2 border-red-500">
+        <ItemsList />
+      </div>
     </>
   )
 }
