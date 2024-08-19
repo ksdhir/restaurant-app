@@ -6,6 +6,7 @@ export default async function handler(req, res) {
     const [results] = await pool.query(`SELECT
         c.id AS category_id,
         c.name AS category_name,
+        c.description as category_description,
         i.id AS item_id, 
         i.name AS item_name,
         i.image_url,
@@ -38,6 +39,7 @@ export default async function handler(req, res) {
         acc.push({
           id: row.category_id,
           categoryName: row.category_name,
+          categoryDescription: row.category_description,
           items: [item],
         })
       }

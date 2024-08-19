@@ -32,13 +32,11 @@ export default async function handler(req, res) {
       `SELECT
         ing.id AS ingredient_id,
         ing.name AS ingredient_name,
-        COALESCE(JSON_ARRAYAGG(at.name), JSON_ARRAY()) AS allergens
-      FROM Ingredients ing
-      JOIN ItemIngredients ii ON ii.ingredient_id = ing.id
-      LEFT JOIN IngredientAllergens ia ON ia.ingredient_id = ing.id
-      LEFT JOIN AllergenTypes at ON at.id = ia.allergen_id
-      WHERE ii.item_id = 1
-      GROUP BY ing.id;`,
+        ing.allergens AS allergens_info 
+        FROM Ingredients ing
+        JOIN ItemIngredients ii ON ii.ingredient_id = ing.id
+        WHERE ii.item_id = ?
+        GROUP BY ing.id;`,
       [id]
     )
 
@@ -49,7 +47,7 @@ export default async function handler(req, res) {
     }))
 
     // ingredients and allergens
-    const ingredients = ingredientsInfo[0];
+    const ingredients = ingredientsInfo[0]
 
     // construct response
     const result = {
