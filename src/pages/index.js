@@ -36,8 +36,8 @@ export default function Home({ items, featuredItems, categoryNames }) {
       />
       {/* Slider listed components */}
       <div className="mt-8 flex flex-col gap-10">
-        {items.map((categoryObj) => {
-          return <ItemsList categoryObj={categoryObj} />
+        {items.map((categoryObj, idx) => {
+          return <ItemsList key={idx} categoryObj={categoryObj} />
         })}
       </div>
     </>
