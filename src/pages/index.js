@@ -22,7 +22,7 @@ export async function getStaticProps() {
       featuredItems,
       categoryNames,
     },
-    revalidate: 10,
+    revalidate:  10 * 60 * 60, // bumped up 10 hours
   }
 }
 
