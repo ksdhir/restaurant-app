@@ -13,9 +13,10 @@ const HeroTertiary = ({ categoryNames }) => {
       </div>
       {/* navigation buttons */}
       <div className="grid grid-row-2 grid-cols-2 gap-4">
-        {categoryNames.map((categoryName) => {
+        {categoryNames.map((categoryName, idx) => {
           return (
             <AppLink
+              key={idx}
               variant="one"
               text={categoryName}
               to={`#${categoryName}`}

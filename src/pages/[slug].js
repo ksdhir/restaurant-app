@@ -8,8 +8,9 @@ import { formatNutritionData } from '@/utils/formatNutritionData'
 import HeroLayout from '@/components/layout/HeroLayout'
 import ItemPrimary from '@/components/item/ItemPrimary'
 import ItemSeconday from '@/components/item/ItemSeconday'
-import ItemInfoList from '@/components/menu/ItemInfoList'
 import ItemTertiary from '@/components/item/ItemTertiary'
+
+import ItemInfoList from '@/components/item/ItemInfoList'
 
 export async function getStaticPaths() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/items`)
@@ -31,7 +32,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false, // 404 if not found.
+    fallback: 'blocking', // 404 if not found.
   }
 }
 
