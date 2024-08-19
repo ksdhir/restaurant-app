@@ -4,7 +4,7 @@ import AppLink from '../common/AppLink'
 const HeroTertiary = ({ categoryNames }) => {
   console.log(categoryNames)
   return (
-    <div className="p-8 max-sm:p-4 flex flex-col gap-3 h-full justify-between">
+    <div className="p-8 max-sm:p-4 flex flex-col gap-3 h-full justify-evenly lg:justify-between">
       {/* secondary header */}
       <div className="flex flex-row">
         <h2 className="text-2xl font-bold bg-primary text-secondary p-2 rounded-lg">
