@@ -10,7 +10,7 @@ const HeroLayout = ({ HeroPrimary, HeroSecondary, HeroTertiary }) => {
       >
         {HeroPrimary}
       </div>
-      <div className="col-span-6 row-span-3 md:col-span-3 lg:col-span-2 lg:row-span-3 bg-secondary rounded-lg text-background">
+      <div className="col-span-6 row-span-3 md:col-span-3 lg:col-span-2 lg:row-span-3 bg-secondary rounded-lg text-background ">
         {HeroSecondary}
       </div>
       <div className="col-span-6 row-span-3 md:col-span-3 lg:col-span-2 lg:row-span-2 bg-accent rounded-lg">

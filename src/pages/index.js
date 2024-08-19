@@ -12,21 +12,24 @@ export async function getStaticProps() {
   console.log(res)
   const items = await res.json()
 
+  const flattedItems = items.flatMap(obj => obj.items);
+  const featuredItems = flattedItems.filter(item => item.isFeatured === 1);
+
   return {
     props: {
       items,
-      res: `${process.env.NEXT_PUBLIC_API_URL}/api/items`,
+      featuredItems: featuredItems,
     },
     revalidate: 10,
   }
 }
 
-export default function Home({ items }) {
+export default function Home({ items, featuredItems }) {
   return (
     <>
       <HeroLayout
         HeroPrimary={<HeroPrimary />}
-        HeroSecondary={<HeroSecondary />}
+        HeroSecondary={<HeroSecondary featuredItems={featuredItems} />}
         HeroTertiary={<HeroTertiary />}
       />
       {/* Slider listed components */}
