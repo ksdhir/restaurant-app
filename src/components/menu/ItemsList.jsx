@@ -9,69 +9,8 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import ArrowBtn from '../common/ArrowBtn'
 
-const ItemsList = () => {
+const ItemsList = ({ categoryObj }) => {
   const swiperRef = useRef(null)
-
-  const categoryName = 'Meals'
-  const categoryDescription = 'The best burgers in town!'
-  const items = [
-    {
-      id: 1,
-      name: 'Burger',
-      price: 10,
-      imageUrl: '/images/chole-bhature.jpg',
-      description: 'The best burger in town!',
-    },
-    {
-      id: 2,
-      name: 'Cheeseburger',
-      price: 12,
-      imageUrl: '/images/badam-milk.jpg',
-      description: 'The best cheeseburger in town!',
-    },
-    {
-      id: 3,
-      name: 'Fries',
-      price: 5,
-      imageUrl: '/images/chole-bhature.jpg',
-      description: 'The best fries in town!',
-    },
-    {
-      id: 4,
-      name: 'Soda',
-      price: 3,
-      imageUrl: '/images/badam-milk.jpg',
-      description: 'The best soda in town!',
-    },
-    {
-      id: 5,
-      name: 'Fries',
-      price: 5,
-      imageUrl: '/images/chole-bhature.jpg',
-      description: 'The best fries in town!',
-    },
-    {
-      id: 6,
-      name: 'Soda',
-      price: 3,
-      imageUrl: '/images/badam-milk.jpg',
-      description: 'The best soda in town!',
-    },
-    {
-      id: 7,
-      name: 'Fries',
-      price: 5,
-      imageUrl: '/images/chole-bhature.jpg',
-      description: 'The best fries in town!',
-    },
-    {
-      id: 8,
-      name: 'Soda',
-      price: 3,
-      imageUrl: '/images/badam-milk.jpg',
-      description: 'The best soda in town!',
-    },
-  ]
 
   const breakpoints = {
     480: {
@@ -98,8 +37,9 @@ const ItemsList = () => {
       <div className="flex flex-row justify-between">
         {/* Header description */}
         <div>
-          <h2 className="text-2xl font-bold">{categoryName}</h2>
-          <p className="">{categoryDescription}</p>
+          <h2 className="text-2xl font-bold">{categoryObj.categoryName}</h2>
+          {/* Todo fix */}
+          <p className="">Lorem ipsum dolor</p>
         </div>
         {/* Action Btns */}
         <div className="self-center flex flex-row gap-2">
@@ -116,7 +56,7 @@ const ItemsList = () => {
         </div>
       </div>
       {/* swiper container */}
-      <div className="mt-2">
+      <div className="mt-4">
         <Swiper
           breakpoints={breakpoints}
           slidesPerView={1}
@@ -125,7 +65,7 @@ const ItemsList = () => {
             swiperRef.current = swiper
           }}
         >
-          {items.map((item) => (
+          {categoryObj.items.map((item) => (
             <SwiperSlide key={item.id}>
               <Link
                 href={
@@ -145,10 +85,10 @@ const ItemsList = () => {
                     {/* card title content */}
                     <div className="flex flex-row justify-between items-center">
                       <h3 className="text-xl font-bold">{item.name}</h3>
-                      <p className="font-bold self-end">From $ {item.price}</p>
+                      <p className="font-bold self-end">${item.price}</p>
                     </div>
                     {/* card description */}
-                    <p className="text-sm">{item.description}</p>
+                    <p className="text-sm line-clamp-2">{item.description}</p>
                   </div>
                 </div>
               </Link>

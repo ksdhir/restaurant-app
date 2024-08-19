@@ -29,17 +29,11 @@ export default function Home({ items }) {
         HeroSecondary={<HeroSecondary />}
         HeroTertiary={<HeroTertiary />}
       />
-      {/* <h1 className="text-4xl text-center font-bold text-gunmetal">
-        Discover the Authentic Taste of Indian Spices
-      </h1>
-      <div className="mt-16 mb-16 flex flex-col gap-16">
-        {items.map((category) => (
-          <Section key={category.id} category={category} />
-        ))}
-      </div> */}
       {/* Slider listed components */}
-      <div className="my-8 flex flex-col gap-2">
-        <ItemsList />
+      <div className="my-8 flex flex-col gap-10">
+        {items.map((categoryObj) => {
+          return <ItemsList categoryObj={categoryObj}  />
+        })}
       </div>
     </>
   )
