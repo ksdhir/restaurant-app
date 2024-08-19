@@ -38,7 +38,7 @@ export default function Home({ items }) {
         ))}
       </div> */}
       {/* Slider listed components */}
-      <div className="my-8 flex flex-col gap-2 border-2 border-red-500">
+      <div className="my-8 flex flex-col gap-2">
         <ItemsList />
       </div>
     </>

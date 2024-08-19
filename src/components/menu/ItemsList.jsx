@@ -68,22 +68,6 @@ const ItemsList = () => {
     },
   ]
 
-  {
-    /* tailwind breakpoints */
-  }
-  {
-    /* screens: {
-        sm: '480px',
-        md: '600px',
-        lg: '768px',
-        xl: '1024px',
-        '2xl': '1280px',
-      }, */
-  }
-
-  {
-    /* swiper breakpoints */
-  }
   const breakpoints = {
     480: {
       slidesPerView: 2,
@@ -118,51 +102,39 @@ const ItemsList = () => {
           <button className="p-2 border border-red-500">Right</button>
         </div>
       </div>
-
-      {/* <div className="grid grid-cols-2 gap-4">
-        {items.map((item) => (
-          <div key={item.id} className="border-2 border-gunmetal p-4">
-            <img
-              src={item.imageUrl}
-              alt={item.name}
-              className="w-full h-48 object-cover"
-            />
-            <h3 className="text-xl font-bold text-gunmetal">{item.name}</h3>
-            <p className="text-gunmetal">${item.price}</p>
-          </div>
-        ))}
-      </div> */}
-
-      <Swiper
-        breakpoints={breakpoints}
-        slidesPerView={1}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
-      >
-        {items.map((item) => (
-          <SwiperSlide key={item.id}>
-            <div className="flex flex-col gap-4 group hover:cursor-pointer overflow-hidden">
-              <img
-                src={item.imageUrl}
-                alt={item.name}
-                className="w-full h-48 object-cover rounded-lg transform transition-transform duration-300 group-hover:scale-110"
-              />
-              <div
-                className="p-2 flex flex-col gap-2 border-2 border-primary rounded-lg
+      {/* swiper container */}
+      <div className="mt-2">
+        <Swiper
+          breakpoints={breakpoints}
+          slidesPerView={1}
+          onSlideChange={() => console.log('slide change')}
+          onSwiper={(swiper) => console.log(swiper)}
+        >
+          {items.map((item) => (
+            <SwiperSlide key={item.id}>
+              <div className="flex flex-col gap-4 group hover:cursor-pointer overflow-hidden">
+                <img
+                  src={item.imageUrl}
+                  alt={item.name}
+                  className="w-full h-48 object-cover rounded-lg transform transition-transform duration-300 group-hover:scale-110"
+                />
+                <div
+                  className="p-2 flex flex-col gap-2 border-2 border-primary rounded-lg
               group-hover:bg-primary transition-colors duration-300"
-              >
-                {/* card title content */}
-                <div className="flex flex-row justify-between items-center">
-                  <h3 className="text-xl font-bold">{item.name}</h3>
-                  <p className="font-bold self-end">From $ {item.price}</p>
+                >
+                  {/* card title content */}
+                  <div className="flex flex-row justify-between items-center">
+                    <h3 className="text-xl font-bold">{item.name}</h3>
+                    <p className="font-bold self-end">From $ {item.price}</p>
+                  </div>
+                  {/* card description */}
+                  <p className="text-sm">{item.description}</p>
                 </div>
-                {/* card description */}
-                <p className="text-sm">{item.description}</p>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </div>
   )
 }
