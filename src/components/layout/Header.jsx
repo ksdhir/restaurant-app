@@ -21,6 +21,7 @@ export const Header = () => {
 
   // Set the active path based on the current route
   const isActive = (path) => {
+    // remove # and everything after it
     const staticPaths = menuItems.map((item) => item.path)
 
     if (staticPaths.includes(router.asPath) && router.asPath === path) {

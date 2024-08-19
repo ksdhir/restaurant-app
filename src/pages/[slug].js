@@ -119,7 +119,7 @@ const ItemPage = ({
         HeroPrimary={
           <ItemPrimary
             imageUrl={itemDetails.image_url}
-            imageName={itemDetails.item_name}
+            itemName={itemDetails.item_name}
           />
         }
         HeroSecondary={
