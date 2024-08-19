@@ -5,7 +5,7 @@ import AppLink from '../common/AppLink'
 
 const HeroPrimary = () => {
   return (
-    <div className=" p-16 max-sm:p-8 flex flex-col gap-4 justify-center">
+    <div className=" p-16 max-sm:p-8 flex flex-col gap-4 justify-center h-full">
       <IoIosHeartEmpty className="w-12 h-12" />
       <h1 className="text-5xl">
         Discover the Authentic Taste of Indian Cuisine
