@@ -8,7 +8,7 @@ export default function App({ Component, pageProps }) {
     <>
       <div className="flex flex-col min-h-screen">
         <Header className="h-16" />
-        <main className="flex-grow">
+        <main className="flex-grow mb-8">
           <div className='container mx-auto p-4'>
             <Component {...pageProps} />
           </div>

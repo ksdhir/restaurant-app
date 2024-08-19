@@ -1,11 +1,16 @@
 import { useState } from 'react'
 import Image from 'next/image'
+
 // import utils
 import { formatNutritionData } from '@/utils/formatNutritionData'
 
 // Import components
+import HeroLayout from '@/components/layout/HeroLayout'
+import ItemPrimary from '@/components/item/ItemPrimary'
+import ItemSeconday from '@/components/item/ItemSeconday'
 import ItemInfoList from '@/components/menu/ItemInfoList'
 import Button from '@/components/common/Button'
+import ItemTertiary from '@/components/item/ItemTertiary'
 
 export async function getStaticPaths() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/items`)
@@ -94,9 +99,41 @@ const ItemPage = ({
     }
   }
 
+  const Imagee = () => {
+    return (
+      <div className=" bg-background flex flex-row justify-center">
+        <Image
+          src={itemDetails.image_url}
+          alt={itemDetails.item_name}
+          width={500}
+          height={200}
+          className="rounded-lg"
+        />
+      </div>
+    )
+  }
+
   return (
     <div className="">
-      <div className="flex flex-col lg:flex-row gap-8">
+      <HeroLayout
+        HeroPrimary={
+          <ItemPrimary
+            imageUrl={itemDetails.image_url}
+            imageName={itemDetails.item_name}
+          />
+        }
+        HeroSecondary={
+          <ItemSeconday
+            itemName={itemDetails.item_name}
+            description={itemDetails.description}
+          />
+        }
+        HeroTertiary={<ItemTertiary itemDetails={itemDetails}
+          selectedSize={selectedSize}
+          handleSizeChange={handleSizeChange}
+        />}
+      />
+      {/* <div className="flex flex-col lg:flex-row gap-8">
         <div>
           <Image
             src={itemDetails.image_url}
@@ -108,7 +145,7 @@ const ItemPage = ({
         </div>
 
         <div className="xl:basis-3/6 flex flex-col gap-8 justify-evenly lg:text-center">
-          {/* item descrip */}
+          
           <div>
             <h1 className="text-3xl text-gunmetal mb-4">
               {itemDetails.item_name}
@@ -116,7 +153,7 @@ const ItemPage = ({
             <p className="text-lg text-gunmetal">{itemDetails.description}</p>
           </div>
 
-          {/* available sizes container */}
+          
           <div className="flex flex-row max-md:flex-col lg:flex-col max-md:items-start items-center justify-between">
             <h2 className="text-2xl text-gunmetal font-semibold max-md:mb-6 lg:mb-6">
               Available Sizes
@@ -145,7 +182,7 @@ const ItemPage = ({
           data={formattedIngredients}
         />
         <ItemInfoList title="Nutrition Information" data={nutritionData} />
-      </div>
+      </div> */}
     </div>
   )
 }

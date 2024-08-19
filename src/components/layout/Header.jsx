@@ -28,9 +28,9 @@ export const Header = () => {
   return (
     <header className="text-gunmetal py-4">
       <div className="container mx-auto flex justify-between items-center px-4">
-        <h1 className="text-2xl font-bold">
+        <h3 className="text-2xl font-bold">
           <Link href="/">Indian Spice House</Link>
-        </h1>
+        </h3>
         {/* Desktop navbar */}
         <nav className="hidden md:flex">
           {menuItems.map((item) => (

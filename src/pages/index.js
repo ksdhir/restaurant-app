@@ -26,16 +26,16 @@ export async function getStaticProps() {
 }
 
 export default function Home({ items, featuredItems, categoryNames }) {
-  console.log(items)
   return (
     <>
       <HeroLayout
+        variant="one"
         HeroPrimary={<HeroPrimary />}
         HeroSecondary={<HeroSecondary featuredItems={featuredItems} />}
         HeroTertiary={<HeroTertiary categoryNames={categoryNames} />}
       />
       {/* Slider listed components */}
-      <div className="my-8 flex flex-col gap-10">
+      <div className="mt-8 flex flex-col gap-10">
         {items.map((categoryObj) => {
           return <ItemsList categoryObj={categoryObj} />
         })}
