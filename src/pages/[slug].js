@@ -59,7 +59,7 @@ export async function getStaticProps({ params }) {
   const formattedIngredients = itemDetails.ingredients.map((ingredient) => {
     return {
       label: ingredient.ingredient_name,
-      value: ingredient.allergens.join(', '),
+      value: ingredient.allergens_info,
     }
   })
 

@@ -1,4 +1,10 @@
 const ItemInfoList = ({ title, data }) => {
+  function displayAllergen(string) {
+    return string
+      .split(',')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(', ')
+  }
   return (
     <div>
       <h2 className="text-2xl font-semibold mb-4">{title}</h2>
@@ -6,9 +12,7 @@ const ItemInfoList = ({ title, data }) => {
         {data.map((item, index) => (
           <div key={index} className="flex justify-between items-start">
             <span className="font-semibold">{item.label}</span>
-            <span>
-              {item.value ? item.value : 'N/A'}
-            </span>
+            <span>{item.value ? displayAllergen(item.value) : 'N/A'}</span>
           </div>
         ))}
       </div>

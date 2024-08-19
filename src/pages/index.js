@@ -11,7 +11,6 @@ import ItemsList from '@/components/menu/ItemsList'
 
 export async function getStaticProps() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/items`)
-  console.log(res)
   const items = await res.json()
 
   const flattedItems = items.flatMap((obj) => obj.items)
