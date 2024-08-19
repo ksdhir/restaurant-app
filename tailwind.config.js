@@ -8,11 +8,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        genmetal: '#2D3142',
-        silver: '#BFC0C0',
-        white: '#FFFFFF', // Fixed the hex code for white
-        coral: '#B5543A',
-        payne: '#4F5D75',
         primary: "#FFB522",
         secondary: "#2F2F2F",
         accent: "#F45D42",
