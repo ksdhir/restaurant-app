@@ -1,5 +1,6 @@
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import Link from 'next/link'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -112,25 +113,27 @@ const ItemsList = () => {
         >
           {items.map((item) => (
             <SwiperSlide key={item.id}>
-              <div className="flex flex-col gap-4 group hover:cursor-pointer overflow-hidden">
-                <img
-                  src={item.imageUrl}
-                  alt={item.name}
-                  className="w-full h-48 object-cover rounded-lg transform transition-transform duration-300 group-hover:scale-110"
-                />
-                <div
-                  className="p-2 flex flex-col gap-2 border-2 border-primary rounded-lg
+              <Link href={item.name.toLowerCase().replace(/\s/g, '-') + `-${item.id}`}>
+                <div className="flex flex-col gap-4 group hover:cursor-pointer overflow-hidden">
+                  <img
+                    src={item.imageUrl}
+                    alt={item.name}
+                    className="w-full h-48 object-cover rounded-lg transform transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div
+                    className="p-2 flex flex-col gap-2 border-2 border-primary rounded-lg
               group-hover:bg-primary transition-colors duration-300"
-                >
-                  {/* card title content */}
-                  <div className="flex flex-row justify-between items-center">
-                    <h3 className="text-xl font-bold">{item.name}</h3>
-                    <p className="font-bold self-end">From $ {item.price}</p>
+                  >
+                    {/* card title content */}
+                    <div className="flex flex-row justify-between items-center">
+                      <h3 className="text-xl font-bold">{item.name}</h3>
+                      <p className="font-bold self-end">From $ {item.price}</p>
+                    </div>
+                    {/* card description */}
+                    <p className="text-sm">{item.description}</p>
                   </div>
-                  {/* card description */}
-                  <p className="text-sm">{item.description}</p>
                 </div>
-              </div>
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>
