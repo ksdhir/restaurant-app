@@ -37,7 +37,7 @@ const ItemsList = ({ categoryObj }) => {
       <div className="flex flex-row justify-between">
         {/* Header description */}
         <div>
-          <h2 className="text-2xl font-bold">{categoryObj.categoryName}</h2>
+          <h2 id={categoryObj.categoryName} className="text-2xl font-bold">{categoryObj.categoryName}</h2>
           {/* Todo fix */}
           <p className="">Lorem ipsum dolor</p>
         </div>

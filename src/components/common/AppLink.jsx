@@ -12,6 +12,7 @@ const AppLink = ({ text, to, variant }) => {
     <Link href={to}>
       <span
         className={`
+          w-full text-center
           inline-block px-4 py-2 rounded-lg font-semibold transition-colors duration-300 box-border cursor-pointer
           ${variants[variant] || 'text-secondary'}
         `}
