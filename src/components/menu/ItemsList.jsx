@@ -2,6 +2,7 @@ import React from 'react'
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react'
 import Link from 'next/link'
 import { useRef } from 'react'
+import Image from 'next/image'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -79,11 +80,15 @@ const ItemsList = ({ categoryObj }) => {
                 }
               >
                 <div className="flex flex-col gap-4 group hover:cursor-pointer overflow-hidden">
-                  <img
-                    src={item.imageUrl}
-                    alt={item.name}
-                    className="w-full h-48 object-cover rounded-lg transform transition-transform duration-300 group-hover:scale-110"
-                  />
+                  <div className="relative w-full h-[200px] rounded-lg">
+                    <Image
+                      src={item.imageUrl}
+                      alt={item.name}
+                      layout="fill"
+                      objectFit="cover"
+                      className="rounded-lg group-hover:scale-110 transform transition-transform duration-300"
+                    />
+                  </div>
                   <div
                     className="p-2 flex flex-col gap-2 border-2 border-primary rounded-lg
               group-hover:bg-primary transition-colors duration-300"
