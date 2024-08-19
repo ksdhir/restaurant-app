@@ -32,7 +32,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: 'blocking', // 404 if not found.
+    fallback: false, // 404 if not found.
   }
 }
 

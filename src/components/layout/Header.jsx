@@ -4,12 +4,12 @@ import { useRouter } from 'next/router' // Import the useRouter hook
 
 // import icons
 import { FiMenu, FiX } from 'react-icons/fi'
+import AppLink from '../common/AppLink'
 
 export const Header = () => {
   // State to control the mobile menu toggle
   const [isOpen, setIsOpen] = useState(false)
-  const [activePath, setActivePath] = useState('') // State to track the active path
-  const router = useRouter() // Get the router object
+  const router = useRouter();
 
   // Menu items with their respective paths
   const menuItems = [
@@ -19,17 +19,15 @@ export const Header = () => {
   ]
 
   // Set the active path based on the current route
-  useEffect(() => {
-    if (router.isReady) {
-      const slug = router.query.slug;
-      console.log(router)
-    }
-    // const splitPath = router.pathname.split('/')
-    // console.log(splitPath)
-    // const selectedPath = splitPath[1]
-    // console.log(splitPath)
-    // setActivePath('/' + selectedPath)
-  }, [router.isReady, router.query.slug])
+  const isActive = (path) => {
+    const staticPaths = menuItems.map((item) => item.path)
+
+    if (staticPaths.includes(router.asPath) && router.asPath === path) {
+      return true
+    } else if (router.route === '/[slug]' && router.asPath.startsWith(path)) {
+      return true
+    } else return false
+  }
 
   return (
     <header className="text-gunmetal py-4">
@@ -38,19 +36,17 @@ export const Header = () => {
           <Link href="/">Indian Spice House</Link>
         </h3>
         {/* Desktop navbar */}
-        <nav className="hidden md:flex">
-          {menuItems.map((item) => (
-            <Link key={item.name} href={item.path}>
-              <span
-                className={`inline-block text-center w-[80px] ${
-                  activePath === item.path
-                    ? 'bg-accent text-background font-bold p-2 rounded-2xl'
-                    : 'text-secondary hover:text-accent p-2'
-                }`}
-              >
-                {item.name}
-              </span>
-            </Link>
+        <nav className="hidden md:flex flex-row gap-2">
+          {menuItems.map((item, idx) => (
+            <span key={idx}>
+              
+              <AppLink
+                key={idx}
+                text={item.name}
+                to={item.path}
+                variant={isActive(item.path) ? 'headerSelectedNav' : 'headerNav'}
+              />
+            </span>
           ))}
         </nav>
 
@@ -60,13 +56,13 @@ export const Header = () => {
             onClick={() => setIsOpen(!isOpen)}
             className="focus:outline-none"
           >
-            <FiMenu className="w-8 h-8 text-gunmetal" />
+            <FiMenu className="w-8 h-8" />
           </button>
         </div>
       </div>
 
       {/* Full-screen overlay menu */}
-      <div
+      {/* <div
         className={`fixed inset-0 bg-white transform ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         } transition-transform duration-300 ease-in-out z-40`}
@@ -77,7 +73,7 @@ export const Header = () => {
             onClick={() => setIsOpen(false)}
             className="focus:outline-none"
           >
-            <FiX className="w-8 h-8 text-gunmetal" />
+            <FiX className="w-8 h-8" />
           </button>
         </div>
         <nav className="flex flex-col items-center space-y-6 mt-8">
@@ -85,14 +81,14 @@ export const Header = () => {
             <Link key={item.name} href={item.path}>
               <span
                 onClick={() => setIsOpen(false)}
-                className="text-gunmetal text-lg hover:text-coral"
+                className="text-lg hover:text-coral"
               >
                 {item.name}
               </span>
             </Link>
           ))}
         </nav>
-      </div>
+      </div> */}
     </header>
   )
 }

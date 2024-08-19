@@ -6,6 +6,8 @@ const AppLink = ({ text, to, variant }) => {
   const variants = {
     one: 'bg-background border-background border-2 hover:bg-secondary hover:text-background hover:border-secondary',
     two: 'bg-primary border-secondary border-2 hover:border-background hover:text-background',
+    headerNav: 'hover:text-accent',
+    headerSelectedNav: 'bg-accent text-secondary',
   }
 
   return (
