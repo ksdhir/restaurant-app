@@ -7,6 +7,7 @@ import { useRef } from 'react'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
+import ArrowBtn from '../common/ArrowBtn'
 
 const ItemsList = () => {
   const swiperRef = useRef(null)
@@ -101,19 +102,17 @@ const ItemsList = () => {
           <p className="">{categoryDescription}</p>
         </div>
         {/* Action Btns */}
-        <div className="self-center">
-          <button
-            className="p-2 border border-red-500"
-            onClick={() => swiperRef.current.slidePrev()}
-          >
+        <div className="self-center flex flex-row gap-2">
+          <ArrowBtn variant="one" onClick={() => swiperRef.current.slidePrev()}>
             Left
-          </button>
-          <button
-            className="p-2 border border-red-500"
+          </ArrowBtn>
+          <ArrowBtn
+            variant="one"
+            direction={'right'}
             onClick={() => swiperRef.current.slideNext()}
           >
             Right
-          </button>
+          </ArrowBtn>
         </div>
       </div>
       {/* swiper container */}
