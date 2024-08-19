@@ -1,9 +1,8 @@
 import React from 'react'
-import AppLink from '../common/AppLink'
 import Button from '../common/Button'
 
-const ItemTertiary = ({itemDetails, handleSizeChange, selectedSize}) => {
-  
+const ItemTertiary = ({ itemDetails, handleSizeChange, selectedSize }) => {
+
   return (
     <div className="p-8 max-sm:p-4 flex flex-col gap-3 h-full justify-evenly lg:justify-between">
       <div className="flex flex-row">
@@ -12,7 +11,7 @@ const ItemTertiary = ({itemDetails, handleSizeChange, selectedSize}) => {
         </h2>
       </div>
 
-      <div className="grid grid-row-1 grid-cols-3 gap-2">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] gap-4">
         {itemDetails.sizes.map((size) => (
           <Button
             isSelected={selectedSize.sizeId === size.sizeId}

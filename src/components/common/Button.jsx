@@ -2,7 +2,9 @@ const Button = ({ children, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className={`px-4 py-2 rounded-lg border transition-colors duration-300`}
+      className={`px-4 py-2 rounded-lg  transition-colors duration-300
+        bg-background text-secondary hover:bg-secondary hover:text-background
+        `}
     >
       {children}
     </button>

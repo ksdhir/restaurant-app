@@ -20,10 +20,16 @@ export const Header = () => {
 
   // Set the active path based on the current route
   useEffect(() => {
-    const splitPath = router.pathname.split('/')
-    const selectedPath = splitPath[1]
-    setActivePath('/' + selectedPath)
-  }, [router.pathname])
+    if (router.isReady) {
+      const slug = router.query.slug;
+      console.log(router)
+    }
+    // const splitPath = router.pathname.split('/')
+    // console.log(splitPath)
+    // const selectedPath = splitPath[1]
+    // console.log(splitPath)
+    // setActivePath('/' + selectedPath)
+  }, [router.isReady, router.query.slug])
 
   return (
     <header className="text-gunmetal py-4">

@@ -9,7 +9,6 @@ import HeroLayout from '@/components/layout/HeroLayout'
 import ItemPrimary from '@/components/item/ItemPrimary'
 import ItemSeconday from '@/components/item/ItemSeconday'
 import ItemInfoList from '@/components/menu/ItemInfoList'
-import Button from '@/components/common/Button'
 import ItemTertiary from '@/components/item/ItemTertiary'
 
 export async function getStaticPaths() {
@@ -114,7 +113,7 @@ const ItemPage = ({
   }
 
   return (
-    <div className="">
+    <div className="flex flex-col gap-[4.5rem]">
       <HeroLayout
         HeroPrimary={
           <ItemPrimary
@@ -128,61 +127,21 @@ const ItemPage = ({
             description={itemDetails.description}
           />
         }
-        HeroTertiary={<ItemTertiary itemDetails={itemDetails}
-          selectedSize={selectedSize}
-          handleSizeChange={handleSizeChange}
-        />}
-      />
-      {/* <div className="flex flex-col lg:flex-row gap-8">
-        <div>
-          <Image
-            src={itemDetails.image_url}
-            alt={itemDetails.item_name}
-            width={600}
-            height={400}
-            className="rounded-lg"
+        HeroTertiary={
+          <ItemTertiary
+            itemDetails={itemDetails}
+            selectedSize={selectedSize}
+            handleSizeChange={handleSizeChange}
           />
-        </div>
-
-        <div className="xl:basis-3/6 flex flex-col gap-8 justify-evenly lg:text-center">
-          
-          <div>
-            <h1 className="text-3xl text-gunmetal mb-4">
-              {itemDetails.item_name}
-            </h1>
-            <p className="text-lg text-gunmetal">{itemDetails.description}</p>
-          </div>
-
-          
-          <div className="flex flex-row max-md:flex-col lg:flex-col max-md:items-start items-center justify-between">
-            <h2 className="text-2xl text-gunmetal font-semibold max-md:mb-6 lg:mb-6">
-              Available Sizes
-            </h2>
-            <div className="flex max-sm:flex-col max-sm:gap-4 gap-2 xl:gap-4 lg:justify-evenly">
-              {itemDetails.sizes.map((size) => (
-                <Button
-                  isSelected={selectedSize.sizeId === size.sizeId}
-                  key={size.sizeId}
-                  onClick={() => handleSizeChange(size)}
-                >
-                  <div className="flex flex-row gap-4 items-center">
-                    <span className="font-semibold">{size.sizeLabel}</span>
-                    <span className="text-sm">${size.price}</span>
-                  </div>
-                </Button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-8 flex flex-col gap-8">
+        }
+      />
+      <div className="flex flex-col gap-8">
+        <ItemInfoList title="Nutrition Information" data={nutritionData} />
         <ItemInfoList
           title="Ingredient and Allergens"
           data={formattedIngredients}
         />
-        <ItemInfoList title="Nutrition Information" data={nutritionData} />
-      </div> */}
+      </div>
     </div>
   )
 }

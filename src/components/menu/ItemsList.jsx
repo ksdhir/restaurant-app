@@ -15,19 +15,23 @@ const ItemsList = ({ categoryObj }) => {
   const breakpoints = {
     480: {
       slidesPerView: 2,
-      spaceBetween: 10,
+      spaceBetween: 16,
     },
     600: {
-      slidesPerView: 3,
-      spaceBetween: 20,
+      slidesPerView: 2,
+      spaceBetween: 16,
     },
     768: {
+      slidesPerView: 2,
+      spaceBetween: 16,
+    },
+    900: {
       slidesPerView: 3,
-      spaceBetween: 30,
+      spaceBetween: 16,
     },
     1024: {
       slidesPerView: 4,
-      spaceBetween: 30,
+      spaceBetween: 16,
     },
   }
 
@@ -37,22 +41,24 @@ const ItemsList = ({ categoryObj }) => {
       <div className="flex flex-row justify-between">
         {/* Header description */}
         <div>
-          <h2 id={categoryObj.categoryName} className="text-2xl font-bold">{categoryObj.categoryName}</h2>
+          <h2 id={categoryObj.categoryName} className="text-2xl font-bold">
+            {categoryObj.categoryName}
+          </h2>
           {/* Todo fix */}
           <p className="">Lorem ipsum dolor</p>
         </div>
         {/* Action Btns */}
         <div className="self-center flex flex-row gap-2">
-          <ArrowBtn variant="one" onClick={() => swiperRef.current.slidePrev()}>
-            Left
-          </ArrowBtn>
+          <ArrowBtn
+            variant="one"
+            direction={'left'}
+            onClick={() => swiperRef.current.slidePrev()}
+          ></ArrowBtn>
           <ArrowBtn
             variant="one"
             direction={'right'}
             onClick={() => swiperRef.current.slideNext()}
-          >
-            Right
-          </ArrowBtn>
+          ></ArrowBtn>
         </div>
       </div>
       {/* swiper container */}

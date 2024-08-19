@@ -10,12 +10,16 @@ const ArrowBtn = ({ onClick, direction, variant }) => {
     two: 'p-2 border-2 border-primary rounded-full group hover:bg-primary',
   }
   return (
-    <button onClick={onClick} className={btnVariants[variant] ? btnVariants[variant] : ''}>
-      {direction === 'right' ? (
+    <button
+      onClick={onClick}
+      className={btnVariants[variant] ? btnVariants[variant] : ''}
+    >
+      {direction === 'right' && (
         <IoIosArrowForward
           className={variants[variant] ? variants[variant] : ''}
         />
-      ) : (
+      )}
+      {direction === 'left' && (
         <IoIosArrowBack
           className={variants[variant] ? variants[variant] : ''}
         />

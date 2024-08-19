@@ -3,6 +3,7 @@ import ArrowBtn from '@/components/common/ArrowBtn'
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react'
 import Link from 'next/link'
 import { useRef } from 'react'
+import Image from 'next/image'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -19,7 +20,7 @@ const HeroSecondary = ({ featuredItems }) => {
   }
   console.log(featuredItems)
   return (
-    <div className="p-8 max-sm:p-4 flex flex-col gap-3 h-full justify-evenly">
+    <div className="border-2 border-secondary rounded-lg p-8 max-sm:p-4 flex flex-col gap-3 h-full justify-evenly">
       {/* secondary header */}
       <div className="flex flex-row justify-between">
         <h2 className="text-2xl font-bold bg-primary text-secondary p-2 rounded-lg">
@@ -27,7 +28,11 @@ const HeroSecondary = ({ featuredItems }) => {
         </h2>
 
         <div className="self-center flex flex-row gap-2">
-          <ArrowBtn variant="two" onClick={() => swiperRef.current.slidePrev()}>
+          <ArrowBtn
+            variant="two"
+            direction={'left'}
+            onClick={() => swiperRef.current.slidePrev()}
+          >
             Left
           </ArrowBtn>
           <ArrowBtn
@@ -56,12 +61,20 @@ const HeroSecondary = ({ featuredItems }) => {
                   item.name.toLowerCase().replace(/\s/g, '-') + `-${item.id}`
                 }
               >
-                <div className="group hover:cursor-pointer overflow-hidden">
-                  <img
-                    src={item.imageUrl}
-                    alt={item.name}
-                    className="w-full h-48 object-cover rounded-lg transform transition-transform duration-300 group-hover:scale-110"
-                  />
+                <div className="group hover:cursor-pointer">
+                  <div className="relative w-full h-[200px] rounded-lg">
+                    <Image
+                      src={item.imageUrl}
+                      alt={item.name}
+                      layout="fill"
+                      objectFit="cover"
+                      className="rounded-lg group-hover:scale-110 transform transition-transform duration-300"
+                    />
+                    <p className="absolute bottom-4 right-4 bg-background text-secondary p-1 px-4 rounded-lg text-sm">
+                      {item.name}:{' '}
+                      <span className="font-bold">$ {item.price}</span>
+                    </p>
+                  </div>
                 </div>
               </Link>
             </SwiperSlide>

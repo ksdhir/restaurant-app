@@ -3,7 +3,7 @@ import React from 'react'
 const HeroLayout = ({ HeroPrimary, HeroSecondary, HeroTertiary }) => {
   return (
     <div
-      className={`grid grid-cols-6 grid-rows-11 md:grid-rows-8  lg:grid-cols-5 lg:grid-rows-5 gap-4`}>
+      className={`grid grid-cols-6 grid-rows-11 md:grid-rows-8 lg:grid-cols-5 lg:grid-rows-5 gap-4`}>
       <div
         className="
         col-span-6 row-span-5
