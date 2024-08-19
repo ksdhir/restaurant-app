@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Head from 'next/head'
 import Image from 'next/image'
 
 // import utils
@@ -99,51 +100,42 @@ const ItemPage = ({
     }
   }
 
-  const Imagee = () => {
-    return (
-      <div className=" bg-background flex flex-row justify-center">
-        <Image
-          src={itemDetails.image_url}
-          alt={itemDetails.item_name}
-          width={500}
-          height={200}
-          className="rounded-lg"
-        />
-      </div>
-    )
-  }
-
   return (
-    <div className="flex flex-col gap-[4.5rem]">
-      <HeroLayout
-        HeroPrimary={
-          <ItemPrimary
-            imageUrl={itemDetails.image_url}
-            itemName={itemDetails.item_name}
-          />
-        }
-        HeroSecondary={
-          <ItemSeconday
-            itemName={itemDetails.item_name}
-            description={itemDetails.description}
-          />
-        }
-        HeroTertiary={
-          <ItemTertiary
-            itemDetails={itemDetails}
-            selectedSize={selectedSize}
-            handleSizeChange={handleSizeChange}
-          />
-        }
-      />
-      <div className="flex flex-col gap-8">
-        <ItemInfoList title="Nutrition Information" data={nutritionData} />
-        <ItemInfoList
-          title="Ingredient and Allergens"
-          data={formattedIngredients}
+    <>
+      <Head>
+        <title>{itemDetails.item_name} - Indian Spice House</title>
+      </Head>
+      <div className="flex flex-col gap-[4.5rem]">
+        <HeroLayout
+          HeroPrimary={
+            <ItemPrimary
+              imageUrl={itemDetails.image_url}
+              itemName={itemDetails.item_name}
+            />
+          }
+          HeroSecondary={
+            <ItemSeconday
+              itemName={itemDetails.item_name}
+              description={itemDetails.description}
+            />
+          }
+          HeroTertiary={
+            <ItemTertiary
+              itemDetails={itemDetails}
+              selectedSize={selectedSize}
+              handleSizeChange={handleSizeChange}
+            />
+          }
         />
+        <div className="flex flex-col gap-8">
+          <ItemInfoList title="Nutrition Information" data={nutritionData} />
+          <ItemInfoList
+            title="Ingredient and Allergens"
+            data={formattedIngredients}
+          />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

@@ -1,3 +1,5 @@
+import Head from 'next/head';
+
 // import components
 import HeroLayout from '@/components/layout/HeroLayout'
 
@@ -28,6 +30,9 @@ export async function getStaticProps() {
 export default function Home({ items, featuredItems, categoryNames }) {
   return (
     <>
+      <Head>
+        <title>Restaurant Menu: Indian Spice House</title>
+      </Head>
       <HeroLayout
         variant="one"
         HeroPrimary={<HeroPrimary />}
