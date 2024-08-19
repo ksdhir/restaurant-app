@@ -46,7 +46,7 @@ const ItemsList = ({ categoryObj }) => {
             {categoryObj.categoryName}
           </h2>
           {/* Todo fix */}
-          <p className="">Lorem ipsum dolor</p>
+          <p className="">{categoryObj.categoryDescription}</p>
         </div>
         {/* Action Btns */}
         <div className="self-center flex flex-row gap-2">

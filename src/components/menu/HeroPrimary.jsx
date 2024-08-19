@@ -16,7 +16,7 @@ const HeroPrimary = () => {
           <strong> authentic </strong> taste of
           <strong> Indian cuisine</strong>, where each dish is crafted with
           <strong> traditional recipes </strong>
-          and the finest ingredients to bring you the true essence of India's
+          and the finest ingredients to bring you the true essence of India&apos;s
           rich culinary heritage.
         </p>
         {/* cta buttons */}
