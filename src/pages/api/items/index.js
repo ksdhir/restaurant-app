@@ -5,11 +5,15 @@ export default async function handler(req, res) {
     // Query to fetch categories and their items
     const [results] = await pool.query(`SELECT
         c.id AS category_id,
-        i.id AS item_id, 
         c.name AS category_name,
+        i.id AS item_id, 
         i.name AS item_name,
         i.image_url,
-        i.is_featured
+        i.is_featured,
+        i.description,
+        (SELECT MIN(isz.price) 
+          FROM ItemSizes isz 
+          WHERE isz.item_id = i.id) AS item_price
       FROM Categories c
       JOIN Items i ON c.id = i.category_id
       ORDER BY c.id, i.id;`)
@@ -24,6 +28,7 @@ export default async function handler(req, res) {
         imageUrl: row.image_url,
         price: row.item_price,
         isFeatured: row.is_featured,
+        description: row.description,
       }
 
       // append if exists else push new category
