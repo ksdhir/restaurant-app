@@ -1,6 +1,7 @@
 import React from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react'
 import Link from 'next/link'
+import { useRef } from 'react'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -8,6 +9,8 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
 const ItemsList = () => {
+  const swiperRef = useRef(null)
+
   const categoryName = 'Meals'
   const categoryDescription = 'The best burgers in town!'
   const items = [
@@ -99,8 +102,18 @@ const ItemsList = () => {
         </div>
         {/* Action Btns */}
         <div className="self-center">
-          <button className="p-2 border border-red-500">Left</button>
-          <button className="p-2 border border-red-500">Right</button>
+          <button
+            className="p-2 border border-red-500"
+            onClick={() => swiperRef.current.slidePrev()}
+          >
+            Left
+          </button>
+          <button
+            className="p-2 border border-red-500"
+            onClick={() => swiperRef.current.slideNext()}
+          >
+            Right
+          </button>
         </div>
       </div>
       {/* swiper container */}
@@ -109,11 +122,17 @@ const ItemsList = () => {
           breakpoints={breakpoints}
           slidesPerView={1}
           onSlideChange={() => console.log('slide change')}
-          onSwiper={(swiper) => console.log(swiper)}
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper
+          }}
         >
           {items.map((item) => (
             <SwiperSlide key={item.id}>
-              <Link href={item.name.toLowerCase().replace(/\s/g, '-') + `-${item.id}`}>
+              <Link
+                href={
+                  item.name.toLowerCase().replace(/\s/g, '-') + `-${item.id}`
+                }
+              >
                 <div className="flex flex-col gap-4 group hover:cursor-pointer overflow-hidden">
                   <img
                     src={item.imageUrl}
